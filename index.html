@@ -1,24 +1,175 @@
-// src/App.js
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom';
-const products = [
-  {
-    id: 'watch1',
-    category: 'Luxury Watches',
-    name: 'Elegant Gold Watch',
-    price: 4999,
-    description: 'A premium gold watch with exquisite craftsmanship.',
-    images: ['/images/watch1.jpg'],
-  },
-  {
-    id: 'decor1',
-    category: 'Décor Items',
-    name: 'Modern Gold Vase',
-    price: 299,
-    description: 'A sleek gold vase to elevate your living space.',
-    images: ['/images/decor1.jpg'],
-  },
-  // Add more products here
-];
-function Navbar({ cartCount }) {
-  return (
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HNH Luxe - Project Brief</title>
+  <style>
+    /* Reset and base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212;
+      color: #d4af37; /* Gold */
+      line-height: 1.6;
+      padding: 2rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    h1, h2, h3 {
+      font-weight: 600;
+      color: #d4af37;
+      margin-bottom: 0.5rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+      border-bottom: 2px solid #d4af37;
+      padding-bottom: 0.3rem;
+      margin-bottom: 1.5rem;
+    }
+    h2 {
+      font-size: 1.8rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    h3 {
+      font-size: 1.2rem;
+      margin-top: 1.2rem;
+      margin-bottom: 0.6rem;
+      color: #fff;
+    }
+    p, li {
+      color: #eee;
+      font-size: 1rem;
+    }
+    ul {
+      padding-left: 1.2rem;
+      margin-top: 0;
+    }
+    li {
+      margin-bottom: 0.4rem;
+    }
+    .domain {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #fff;
+      margin: 1rem 0 2rem 0;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #d4af37;
+      margin: 2rem 0;
+      opacity: 0.3;
+    }
+    code {
+      background-color: #333;
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
+      font-family: monospace;
+      color: #d4af37;
+    }
+    /* Scrollbar for code if needed */
+    pre {
+      background-color: #1e1e1e;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      color: #d4af37;
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+    a {
+      color: #d4af37;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    /* Responsive */
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Project Brief: HNH Luxe</h1>
+
+  <section>
+    <h2>Business Overview</h2>
+    <p>
+      <strong>HNH Luxe</strong> is a premium online store offering luxury watches and high-end décor items. Our goal is to establish a brand that represents <em>sophistication, elegance, and exclusivity</em>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Domain Purchased</h2>
+    <p class="domain">🌐 <a href="https://hnhluxe.store" target="_blank" rel="noopener noreferrer">hnhluxe.store</a></p>
+  </section>
+
+  <hr />
+
+  <section>
+    <h2>Website Requirements</h2>
+    <h3>1. Design Style</h3>
+    <ul>
+      <li>Minimalist, elegant, and modern</li>
+      <li>Luxury brand feel (similar to Rolex, Cartier, or premium décor brands)</li>
+      <li>Dark + gold or white + black color palette</li>
+    </ul>
+
+    <h3>2. Features Needed</h3>
+    <ul>
+      <li>Homepage with hero banner showcasing watches and décor items</li>
+      <li>Product categories (Luxury Watches, Décor Items, New Arrivals, Bestsellers)</li>
+      <li>Product detail pages with high-quality images, descriptions, and price</li>
+      <li>Shopping cart + secure checkout integration</li>
+      <li>Responsive design (mobile-first optimized)</li>
+      <li>Customer login/account system</li>
+      <li>Contact page with form + business email</li>
+      <li>About Us page (brand story)</li>
+      <li>SEO-friendly structure</li>
+    </ul>
+
+    <h3>3. Tech Preference</h3>
+    <ul>
+      <li>Open to Shopify, WooCommerce (WordPress), or a custom solution</li>
+    </ul>
+  </section>
+
+  <hr />
+
+  <section>
+    <h2>Logo Requirements</h2>
+    <ul>
+      <li><strong>Brand Name:</strong> HNH Luxe</li>
+      <li><strong>Style:</strong> Clean, minimal, and luxurious</li>
+      <li><strong>Inspiration:</strong> Subtle typography with a premium touch (think Chanel, Gucci, Dior branding)</li>
+      <li><strong>Colors:</strong> Black, White, Gold (open to suggestions)</li>
+      <li>Must be scalable for website, social media, and packaging</li>
+    </ul>
+  </section>
+
+  <hr />
+
+  <section>
+    <h2>Deliverables</h2>
+    <ul>
+      <li>Fully functional eCommerce website at <code>hnhluxe.store</code></li>
+      <li>Professional logo design (in multiple formats: PNG, SVG, PDF, AI)</li>
+      <li>Brand identity suggestions (fonts, colors, style guide optional)</li>
+    </ul>
+  </section>
+</body>
+</html>
