@@ -1,352 +1,55 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="HNH Luxe — Luxury watches & premium home décor. Minimalist, elegant online store." />
-  <title>HNH Luxe — Luxury Watches & Décor</title>
-
-  <!-- Open Graph / Social -->
-  <meta property="og:title" content="HNH Luxe — Luxury Watches & Décor" />
-  <meta property="og:description" content="HNH Luxe — curated luxury watches and high-end décor. Shop New Arrivals & Bestsellers." />
-  <meta property="og:type" content="website" />
-
-  <!-- SEO-friendly canonical (update to your domain when deployed) -->
-  <link rel="canonical" href="https://hnhluxe.store/" />
-
-  <!-- Google fonts (free) -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
-  <style>
-    :root{
-      --bg:#0b0b0b; --card:#0f0f0f; --muted:#9b9b9b; --gold:#bfa16a; --white:#ffffff;
-      --max-width:1200px; --radius:12px;
-    }
-    /* Mobile-first */
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family:Inter,system-ui,Arial; background:var(--bg); color:var(--white);
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; line-height:1.4;
-    }
-    a{color:inherit; text-decoration:none}
-    .container{max-width:var(--max-width); margin:0 auto; padding:20px}
-
-    /* Header */
-    header{display:flex;align-items:center;justify-content:space-between; gap:12px; padding:18px 0}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{display:inline-grid; place-items:center; width:48px;height:48px; border-radius:10px; background:linear-gradient(180deg,#0b0b0b,#151515); box-shadow:0 6px 18px rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.03)}
-    .logo svg{width:34px;height:34px}
-    .brand h1{font-family:'Playfair Display', serif; font-weight:600; margin:0; font-size:18px}
-    .nav{display:flex; gap:14px; align-items:center}
-    .nav a{font-size:14px; color:var(--muted)}
-    .cta{border:1px solid rgba(255,255,255,0.06); padding:8px 12px; border-radius:10px}
-
-    /* Hero */
-    .hero{display:grid; grid-template-columns:1fr; gap:20px; align-items:center; margin:18px 0}
-    .hero .left{padding:20px}
-    .eyebrow{color:var(--gold); letter-spacing:1px; font-size:13px}
-    .headline{font-family:'Playfair Display', serif; font-size:34px; margin:6px 0}
-    .sub{color:var(--muted); margin-bottom:18px}
-    .hero-buttons{display:flex; gap:10px}
-    .btn{padding:10px 14px; border-radius:10px; font-weight:600; cursor:pointer}
-    .btn-primary{background:var(--gold); color:#0a0a0a}
-    .btn-ghost{border:1px solid rgba(255,255,255,0.06); color:var(--white); background:transparent}
-    .hero .right{display:grid; place-items:center}
-    .hero-image{width:100%; max-width:420px; border-radius:14px; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,0.6)}
-    .hero-image img{width:100%; display:block}
-
-    /* Category menu */
-    .categories{display:flex; gap:10px; margin:14px 0; overflow:auto}
-    .chip{padding:8px 12px; background:transparent; border-radius:999px; border:1px solid rgba(255,255,255,0.04); color:var(--muted); font-weight:600}
-    .chip.active{background:rgba(191,161,106,0.12); color:var(--gold); border-color:rgba(191,161,106,0.18)}
-
-    /* Grid */
-    .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
-    .card{background:var(--card); padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,0.03)}
-    .card img{width:100%; border-radius:10px}
-    .product-title{font-weight:600; margin:8px 0 4px}
-    .price{color:var(--gold); font-weight:700}
-    .muted{color:var(--muted); font-size:13px}
-
-    /* Cart drawer */
-    .cart-btn{position:relative}
-    .cart-count{position:absolute; top:-8px; right:-8px; background:var(--gold); color:#000; font-weight:700; width:22px;height:22px;border-radius:50%; display:grid; place-items:center; font-size:12px}
-    .drawer{position:fixed; right:18px; top:72px; width:320px; max-width:90%; background:#080808; border:1px solid rgba(255,255,255,0.04); border-radius:12px; padding:12px; box-shadow:0 30px 80px rgba(0,0,0,0.6); z-index:90}
-
-    /* Footer */
-    footer{margin-top:40px; color:var(--muted); padding:36px 0}
-
-    /* Modal product detail */
-    .modal-backdrop{position:fixed; inset:0; background:rgba(0,0,0,0.7); display:none; place-items:center; z-index:100}
-    .modal{width:94%; max-width:980px; background:var(--card); border-radius:14px; padding:18px; display:grid; grid-template-columns:1fr; gap:12px}
-    .modal .gallery{display:grid; grid-template-columns:1fr; gap:8px}
-    .modal img{width:100%; border-radius:8px}
-
-    /* Contact form */
-    .form-row{display:flex; flex-direction:column; gap:8px}
-    label{font-size:13px; color:var(--muted)}
-    input,textarea{background:#0b0b0b; border:1px solid rgba(255,255,255,0.04); padding:10px; border-radius:8px; color:var(--white)}
-
-    /* Responsive bigger */
-    @media(min-width:800px){
-      .hero{grid-template-columns:1fr 1fr}
-      .grid{grid-template-columns:repeat(3,1fr)}
-      .modal{grid-template-columns: 1fr 1fr}
-    }
-    @media(min-width:1100px){
-      .grid{grid-template-columns:repeat(4,1fr)}
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Husnain Ayyub - Personal Webpage</title>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="brand">
-        <div class="logo" aria-hidden="true">
-          <!-- Simple monogram logo SVG (editable) -->
-          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="HNH Luxe logo">
-            <rect width="100" height="100" rx="14" fill="black" />
-            <text x="50" y="60" text-anchor="middle" font-family="Playfair Display, serif" font-size="48" fill="#bfa16a">H</text>
-          </svg>
-        </div>
-        <div>
-          <h1>HNH Luxe</h1>
-          <div style="font-size:12px;color:var(--muted)">Luxury Watches & Décor</div>
-        </div>
-      </div>
+  <header>
+    <h1>Welcome to My Webpage</h1>
+    <p>
+      Energetic and ambitious undergraduate at Lahore Garrison University with a responsible approach 
+      to tasks and challenges. Skilled at collaborating with teams to achieve objectives efficiently, 
+      bringing enthusiasm, adaptability, and dedication to every role.
+    </p>
+  </header>
 
-      <nav class="nav">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <a href="#account" id="accountLink" class="cta">Account</a>
-        <button class="btn btn-ghost cart-btn" id="openCartBtn" aria-label="Open cart">Cart <span class="cart-count" id="cartCount">0</span></button>
-      </nav>
-    </header>
+  <nav>
+    <ul>
+      <li><a href="contact.html">About Me</a></li>
+      <li><a href="index.html">Projects</a></li>
+      <li><a href="https://github.com/Husnainayyub05" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+  </nav>
 
-    <!-- HERO -->
-    <section class="hero" id="home">
-      <div class="left">
-        <div class="eyebrow">NEW COLLECTION</div>
-        <div class="headline">Timeless watches. Curated décor.</div>
-        <div class="sub">Discover a handpicked selection of luxury watches and premium décor that brings refinement to your life.</div>
-        <div class="hero-buttons">
-          <button class="btn btn-primary" onclick="filterCategory('new')">Shop New</button>
-          <button class="btn btn-ghost" onclick="filterCategory('watches')">Shop Watches</button>
-        </div>
-      </div>
-      <div class="right">
-        <figure class="hero-image">
-          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Luxury watch hero"/>
-        </figure>
-      </div>
+  <main>
+    <section id="contact">
+      <h2>About Me</h2>
+      <p>Brief bio or description.</p>
+      <img src="AgentP.jpg" alt="Profile picture of Husnain Ayyub" width="150" height="150">
     </section>
 
-    <!-- Categories -->
-    <div class="categories" id="categoryChips">
-      <button class="chip active" data-cat="all" onclick="filterCategory('all')">All</button>
-      <button class="chip" data-cat="watches" onclick="filterCategory('watches')">Luxury Watches</button>
-      <button class="chip" data-cat="decor" onclick="filterCategory('decor')">Décor Items</button>
-      <button class="chip" data-cat="new" onclick="filterCategory('new')">New Arrivals</button>
-      <button class="chip" data-cat="bestseller" onclick="filterCategory('bestseller')">Bestsellers</button>
-    </div>
+    <aside>
+      <h3>Quick Facts</h3>
+      <ul>
+        <li><strong>Location:</strong> Punjab, Pakistan</li>
+        <li><strong>Interests:</strong> Web Development, AI</li>
+        <li><strong>Languages:</strong> English, Urdu</li>
+      </ul>
+    </aside>
 
-    <!-- Product Grid -->
-    <section>
-      <div class="grid" id="productsGrid" aria-live="polite">
-        <!-- JS populates products -->
-      </div>
+    <section id="projects">
+      <h2>Projects</h2>
+      <ul>
+        <li><a href="index.html">Project</a></li>
+      </ul>
     </section>
+  </main>
 
-    <!-- About -->
-    <section id="about" style="margin-top:28px">
-      <h2 style="font-family:'Playfair Display',serif; font-size:22px; margin:0 0 6px">Our Story</h2>
-      <p class="muted">HNH Luxe was founded with a simple mission: to make refined design and exceptional craftsmanship accessible to discerning collectors. We curate pieces that tell a story — for wrists, and for homes.</p>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" style="margin-top:28px">
-      <h2 style="font-family:'Playfair Display',serif; font-size:20px; margin:0 0 6px">Contact</h2>
-      <p class="muted">Questions? Reach out at <a href="mailto:hello@hnhluxe.store">hello@hnhluxe.store</a></p>
-      <form id="contactForm" style="max-width:640px;margin-top:12px" onsubmit="submitContact(event)">
-        <div class="form-row">
-          <label for="cname">Name</label>
-          <input id="cname" required />
-        </div>
-        <div class="form-row">
-          <label for="cemail">Email</label>
-          <input id="cemail" type="email" required />
-        </div>
-        <div class="form-row">
-          <label for="cmessage">Message</label>
-          <textarea id="cmessage" rows="5" required></textarea>
-        </div>
-        <div style="margin-top:8px">
-          <button class="btn btn-primary" type="submit">Send Message</button>
-          <a class="btn btn-ghost" href="mailto:hello@hnhluxe.store?subject=Contact%20from%20website">Email Us</a>
-        </div>
-      </form>
-    </section>
-
-    <footer>
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap; gap:12px">
-        <div>
-          <strong>HNH Luxe</strong>
-          <div class="muted">© <span id="year"></span> HNH Luxe. All rights reserved.</div>
-        </div>
-        <div class="muted">Follow us on Instagram • Facebook • X</div>
-      </div>
-    </footer>
-  </div>
-
-  <!-- Cart drawer container (hidden by default) -->
-  <div id="cartDrawer" class="drawer" style="display:none">
-    <h3 style="margin:0 0 8px">Your Cart</h3>
-    <div id="cartItems" style="max-height:360px; overflow:auto"></div>
-    <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center">
-      <div class="muted">Total:</div>
-      <div id="cartTotal" style="font-weight:700; color:var(--gold)">$0</div>
-    </div>
-    <div style="margin-top:10px; display:flex; gap:8px">
-      <button class="btn btn-primary" onclick="checkout()">Checkout</button>
-      <button class="btn btn-ghost" onclick="closeCart()">Close</button>
-    </div>
-  </div>
-
-  <!-- Product modal -->
-  <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true">
-    <div class="modal" id="productModal">
-      <!-- populated by JS -->
-    </div>
-  </div>
-
-  <script>
-    // Basic product dataset (replace with back-end or headless CMS later)
-    const products = [
-      {id:1, title:'Aurum Chrono', price:1295, category:'watches', desc:'Swiss quartz movement, 40mm case, sapphire crystal.', img:'https://images.unsplash.com/photo-1519744792095-2f2205e87b6f?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder', bestseller:true, new:true},
-      {id:2, title:'Noir Diver', price:1699, category:'watches', desc:'Automatic diver, 300m water resistance.', img:'https://images.unsplash.com/photo-1518544809427-3bf05d4f6b85?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder', bestseller:true},
-      {id:3, title:'Marble Accent Tray', price:199, category:'decor', desc:'Italian marble serving tray, handcrafted.', img:'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder', new:true},
-      {id:4, title:'Brass Candle Holder', price:129, category:'decor', desc:'Solid brass, antique finish.', img:'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder'},
-      {id:5, title:'Midnight Dress Watch', price:899, category:'watches', desc:'Slim profile, leather strap.', img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder', bestseller:true},
-      {id:6, title:'Sculpted Vase', price:249, category:'decor', desc:'Hand-sculpted ceramic vase.', img:'https://images.unsplash.com/photo-1505691723518-36a1f9b0fbe3?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder', new:true}
-    ];
-
-    // Utilities
-    const $ = id=>document.getElementById(id);
-    const qs = s=>document.querySelector(s);
-
-    // Render products
-    function renderProducts(list){
-      const grid = $('productsGrid'); grid.innerHTML='';
-      list.forEach(p=>{
-        const el = document.createElement('article'); el.className='card';
-        el.innerHTML = `
-          <img src="${p.img}" alt="${p.title}" loading="lazy" />
-          <div class="product-title">${p.title}</div>
-          <div class="muted">${p.desc}</div>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
-            <div class="price">$${p.price.toFixed(2)}</div>
-            <div style="display:flex;gap:8px">
-              <button class="btn btn-ghost" onclick="openModal(${p.id})">View</button>
-              <button class="btn btn-primary" onclick="addToCart(${p.id})">Add</button>
-            </div>
-          </div>
-        `;
-        grid.appendChild(el);
-      })
-    }
-
-    // Initial
-    document.addEventListener('DOMContentLoaded', ()=>{
-      renderProducts(products);
-      $('year').textContent = new Date().getFullYear();
-      updateCartCount();
-    });
-
-    // Filtering
-    function filterCategory(cat){
-      document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-      const active = Array.from(document.querySelectorAll('.chip')).find(c=>c.dataset.cat===cat) || document.querySelector('.chip[data-cat="all"]');
-      if(active) active.classList.add('active');
-      if(cat==='all') return renderProducts(products);
-      const filtered = products.filter(p=> (cat==='new'?p.new:cat==='bestseller'?p.bestseller: p.category===cat));
-      renderProducts(filtered);
-    }
-
-    // Modal
-    function openModal(id){
-      const p = products.find(x=>x.id===id); if(!p) return;
-      const modal = $('productModal');
-      modal.innerHTML = `
-        <div class="gallery">
-          <img src="${p.img}" alt="${p.title}" />
-        </div>
-        <div>
-          <h2 style="margin:0 0 8px">${p.title}</h2>
-          <div class="muted">${p.category.toUpperCase()}</div>
-          <p style="margin-top:10px">${p.desc}</p>
-          <div style="font-weight:700; color:var(--gold); font-size:20px; margin-top:8px">$${p.price.toFixed(2)}</div>
-          <div style="margin-top:12px; display:flex; gap:8px">
-            <button class="btn btn-primary" onclick="addToCart(${p.id}); closeModal();">Add to Cart</button>
-            <button class="btn btn-ghost" onclick="closeModal()">Close</button>
-          </div>
-        </div>
-      `;
-      $('modalBackdrop').style.display='grid';
-    }
-    function closeModal(){ $('modalBackdrop').style.display='none'; }
-    $('modalBackdrop').addEventListener('click', e=>{ if(e.target.id==='modalBackdrop') closeModal(); })
-
-    // Cart (simple localStorage cart)
-    function getCart(){ return JSON.parse(localStorage.getItem('hnh_cart')||'[]'); }
-    function saveCart(cart){ localStorage.setItem('hnh_cart', JSON.stringify(cart)); updateCartCount(); }
-    function addToCart(id){ const cart = getCart(); const item = cart.find(i=>i.id===id); if(item){ item.qty++; } else { const p = products.find(x=>x.id===id); cart.push({id:p.id,title:p.title,price:p.price,qty:1}); } saveCart(cart); openCart(); }
-    function updateCartCount(){ const count = getCart().reduce((s,i)=>s+i.qty,0); $('cartCount').textContent = count; }
-
-    function openCart(){ renderCart(); $('cartDrawer').style.display='block'; }
-    function closeCart(){ $('cartDrawer').style.display='none'; }
-
-    function renderCart(){ const items = getCart(); const wrap = $('cartItems'); wrap.innerHTML=''; if(items.length===0){ wrap.innerHTML='<div class="muted">Your cart is empty</div>'; $('cartTotal').textContent='$0'; return; }
-      items.forEach(i=>{
-        const row = document.createElement('div'); row.style.display='flex'; row.style.justifyContent='space-between'; row.style.alignItems='center'; row.style.padding='8px 0';
-        row.innerHTML = `<div style="flex:1"><div style="font-weight:700">${i.title}</div><div class="muted">$${i.price.toFixed(2)} × ${i.qty}</div></div><div style="display:flex;flex-direction:column;gap:6px"><button class="btn btn-ghost" onclick="changeQty(${i.id},1)">+</button><button class="btn btn-ghost" onclick="changeQty(${i.id},-1)">-</button></div>`
-        wrap.appendChild(row);
-      })
-      const total = items.reduce((s,i)=>s+i.price*i.qty,0); $('cartTotal').textContent = '$' + total.toFixed(2);
-    }
-    function changeQty(id, delta){ const cart = getCart(); const idx = cart.findIndex(i=>i.id===id); if(idx===-1) return; cart[idx].qty += delta; if(cart[idx].qty<=0) cart.splice(idx,1); saveCart(cart); renderCart(); }
-
-    // Checkout placeholder
-    function checkout(){ const cart = getCart(); if(cart.length===0){ alert('Cart is empty'); return; }
-      // For static GitHub Pages: offer 2 options — link to Shopify/Stripe or send invoice via email
-      const proceed = confirm('This demo site cannot process payments directly.\nChoose OK to open your email client to request an invoice, or Cancel to copy cart summary.');
-      if(proceed){ const body = encodeURIComponent('Hello HNH Luxe,\n\nI would like to purchase the following items:\n' + cart.map(i=>`${i.qty} × ${i.title} — $${i.price}`).join('\n') + '\n\nThanks.');
-        window.location.href = `mailto:hello@hnhluxe.store?subject=Order%20Request&body=${body}`;
-      } else { navigator.clipboard && navigator.clipboard.writeText(JSON.stringify(cart)) .then(()=>alert('Cart copied to clipboard')) .catch(()=>alert('Unable to copy — please copy manually.')); }
-    }
-
-    // Contact form (no back-end) — we simply open mailto or show a success toast
-    function submitContact(e){ e.preventDefault(); const name=$('cname').value, email=$('cemail').value, msg=$('cmessage').value; const subject = encodeURIComponent('Website Contact from ' + name); const body = encodeURIComponent(msg + "\n\nFrom: " + name + ' ('+email+')'); window.location.href = `mailto:hello@hnhluxe.store?subject=${subject}&body=${body}`; }
-
-    // Simple account mock (localStorage)
-    const userKey = 'hnh_user';
-    qs('#accountLink').addEventListener('click', (ev)=>{ ev.preventDefault(); const user=JSON.parse(localStorage.getItem(userKey)||'null'); if(!user){ const email = prompt('Enter your email to create/sign-in account'); if(!email) return; localStorage.setItem(userKey, JSON.stringify({email})); alert('Signed in as ' + email); $('accountLink').textContent = 'Account'; } else { if(confirm('Sign out?')){ localStorage.removeItem(userKey); $('accountLink').textContent = 'Account'; } } });
-
-    // Accessibility: keyboard close for modal and ESC to close
-    document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeModal(); closeCart(); } });
-  </script>
-
-  <!-- Structured data JSON-LD: Organization + WebSite -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"HNH Luxe",
-    "url":"https://hnhluxe.store",
-    "logo":"https://hnhluxe.store/logo.png",
-    "contactPoint": [{"@type":"ContactPoint","email":"hello@hnhluxe.store","contactType":"customer service"}]
-  }
-  </script>
+  <footer>
+    <p>© 2025 Husnain Ayyub. All rights reserved.</p>
+    <p><a href="mailto:fa-2023-bscs-282@lgu.edu.pk">Contact Me</a></p>
+  </footer>
 </body>
 </html>
